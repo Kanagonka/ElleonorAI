@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GT-1733 | Meme Cooking NEAR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 5px solid #ff6b6b;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 3rem;
+            color: #ff6b6b;
+            text-shadow: 3px 3px 0 #ffe66d;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #4ecdc4;
+            margin-bottom: 30px;
+        }
+
+        /* Навигационные вкладки */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Comic Sans MS', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab.active {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .token-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 3px dashed #4ecdc4;
+        }
+
+        .info-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .meme-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .meme-item {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .meme-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .meme-emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .cooking-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .recipe-title {
+            color: #ff6b6b;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 0 #ffe66d;
+        }
+
+        .recipe-steps {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .recipe-step {
+            background: #ffe66d;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .buy-button {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive;
+            margin: 20px 0;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Стили для DexScreener вкладки */
+        .dexscreener-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .dexscreener-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .dexscreener-header h2 {
+            color: #ff6b6b;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .dexscreener-iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .chart-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(45deg, #4ecdc4, #67e6dc);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            background: #4ecdc4;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #45b7af;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2rem; }
+            .logo { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; }
+            .tabs { flex-direction: column; }
+            .tab { margin: 5px 0; }
+            .dexscreener-iframe { height: 400px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">🍳🚀</div>
+            <h1 class="title">GT-1733 MEME COOKING</h1>
+            <p class="subtitle">The tastiest meme token on NEAR Protocol!</p>
+            <button class="buy-button" onclick="buyToken()">BUY GT-1733 🍳</button>
+        </header>
+
+        <!-- Навигационные вкладки -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('home')">🏠 Home</button>
+            <button class="tab" onclick="switchTab('dexscreener')">📈 Live Chart</button>
+            <button class="tab" onclick="switchTab('info')">ℹ️ Token Info</button>
+        </div>
+
+        <!-- Вкладка Home -->
+        <div id="home" class="tab-content active">
+            <div class="meme-gallery">
+                <div class="meme-item">
+                    <div class="meme-emoji">🤪</div>
+                    <h3>Meme Power</h3>
+                    <p>Fueled by the finest internet culture</p>
+                </div>
+                <div class="meme-item">
+                    <div class="meme-emoji">🍳</div>
+                    <h3>Fresh Cooking</h3>
+                    <p>Daily meme recipes from our kitchen</p>
+                </div>
+                <div class="meme-item">
+                    <div class="meme-emoji">🚀</div>
+                    <h3>Moon Mission</h3>
+                    <p>Cooking up gains since 2024</p>
+                </div>
+            </div>
+
+            <section class="cooking-section">
+                <h2 class="recipe-title">🧑‍🍳 Our Secret Recipe</h2>
+                <div class="recipe-steps">
+                    <div class="recipe-step">
+                        <strong>Step 1:</strong> Take 1kg of fresh memes
+                    </div>
+                    <div class="recipe-step">
+                        <strong>Step 2:</strong> Add NEAR Protocol blockchain
+                    </div>
+                    <div class="recipe-step">
+                        <strong>Step 3:</strong> Mix with community love
+                    </div>
+                    <div class="recipe-step">
+                        <strong>Step 4:</strong> Bake at 1733° for maximum flavor
+                    </div>
+                    <div class="recipe-step">
+                        <strong>Step 5:</strong> Serve hot to the moon! 🚀
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Вкладка DexScreener -->
+        <div id="dexscreener" class="tab-content">
+            <div class="dexscreener-container">
+                <div class="dexscreener-header">
+                    <h2>📊 Live Trading</h2>
+                    <p>Real-time price chart and trading data</p>
+                </div>
+                
+                <iframe class="dexscreener-iframe" 
+                        src="https://dexscreener.com/near/refv1-6606?embed=1&info=0&theme=light"
+                        loading="lazy">
+                </iframe>
+
+                <div class="chart-stats">
+                    <div class="stat-card">
+                        <h4>💎 Pool</h4>
+                        <p>GT-1733/NEAR</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>🔗 Network</h4>
+                        <p>NEAR Protocol</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>⚡ DEX</h4>
+                        <p>Ref Finance</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>🎯 Live</h4>
+                        <p>Real-time Data</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Вкладка Token Info -->
+        <div id="info" class="tab-content">
+            <div class="token-info">
+                <div class="info-card">
+                    <h3>📊 Token Metrics</h3>
+                    <p><strong>Supply:</strong> 1,000,000,000 GT-1733</p>
+                    <p><strong>Network:</strong> NEAR Protocol</p>
+                    <p><strong>Type:</strong> Meme + Utility</p>
+                </div>
+                <div class="info-card">
+                    <h3>👨‍🍳 Chef's Special</h3>
+                    <p>Freshly cooked memes</p>
+                    <p>Community-driven</p>
+                    <p>Zero gas fees</p>
+                </div>
+                <div class="info-card">
+                    <h3>🏆 Tokenomics</h3>
+                    <p>90% Liquidity</p>
+                    <p>5% Marketing</p>
+                    <p>5% Development</p>
+                </div>
+            </div>
+
+            <div class="cooking-section">
+                <h2 class="recipe-title">🔧 Contract Details</h2>
+                <div class="recipe-steps">
+                    <div class="recipe-step">
+                        <strong>Contract Address:</strong><br>
+                        <code style="background: #f1f1f1; padding: 5px; border-radius: 5px;">gt-1733.meme-cooking.near</code>
+                    </div>
+                    <div class="recipe-step">
+                        <strong>DEX:</strong> Ref Finance
+                    </div>
+                    <div class="recipe-step">
+                        <strong>Pool:</strong> GT-1733/NEAR
+                    </div>
+                    <div class="recipe-step">
+                        <strong>Launch:</strong> 2024
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="#" class="social-link">Telegram</a>
+            <a href="#" class="social-link">Twitter</a>
+            <a href="https://dexscreener.com/near/refv1-6606" class="social-link" target="_blank">DEXScreener</a>
+            <a href="https://near.org" class="social-link" target="_blank">NEAR Wallet</a>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Скрыть все вкладки
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Убрать активный класс со всех кнопок
+            document.querySelectorAll('.tab').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Показать выбранную вкладку
+            document.getElementById(tabName).classList.add('active');
+            
+            // Активировать соответствующую кнопку
+            event.target.classList.add('active');
+        }
+
+        function buyToken() {
+            // Integration with NEAR wallet would go here
+            alert('🚀 Connecting to NEAR Wallet...\n\nContract: gt-1733.meme-cooking.near\n\nAdd this contract to your swap!');
+        }
+
+        // Add some interactive fun
+        const emojis = ['🍳', '🚀', '🤪', '🎯', '🔥', '💎', '👨‍🍳', '🍕'];
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('meme-item')) {
+                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                const floatingEmoji = document.createElement('div');
+                floatingEmoji.textContent = randomEmoji;
+                floatingEmoji.style.position = 'fixed';
+                floatingEmoji.style.left = e.clientX + 'px';
+                floatingEmoji.style.top = e.clientY + 'px';
+                floatingEmoji.style.fontSize = '2rem';
+                floatingEmoji.style.pointerEvents = 'none';
+                floatingEmoji.style.animation = 'floatUp 1s ease-out forwards';
+                
+                document.body.appendChild(floatingEmoji);
+                
+                setTimeout(() => {
+                    floatingEmoji.remove();
+                }, 1000);
+            }
+        });
+
+        // Add the animation style
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                0% { transform: translateY(0); opacity: 1; }
+                100% { transform: translateY(-100px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Auto-refresh DexScreener iframe every 30 seconds to keep data fresh
+        setInterval(() => {
+            const dexscreenerIframe = document.querySelector('.dexscreener-iframe');
+            if (dexscreenerIframe && document.getElementById('dexscreener').classList.contains('active')) {
+                dexscreenerIframe.src = dexscreenerIframe.src;
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
